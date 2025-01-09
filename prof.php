@@ -1,10 +1,10 @@
 <?php
 	session_start();
-	if($_SESSION['checksession']=='student1' OR $_SESSION['checksession']=='admin1'){
-		
+	if($_SESSION['checksession']=='provider1' OR $_SESSION['checksession']=='admin1'){
+
 	}
-	elseif($_SESSION['checksession']=='provider1'){
-		echo"<script>alert('You Book Providers are not allowed here !! we have recognized you as ".$_SESSION['PNAME']."');window.location.href='/LMS3/home.php';</script>";
+	elseif($_SESSION['checksession']=='student1'){
+		echo"<script>alert('You Student are not allowed here !! we have recognized you as ".$_SESSION['PNAME']."');window.location.href='/LMS3/home.php';</script>";
 	}
 	elseif($_SESSION['checksession']=='false'){
 		echo"<script>alert('Hey just leave the site. You are not allowed here');window.location.href='/LMS3/home.php';</script>";
@@ -32,11 +32,9 @@
 				?>
 			</div>
 			<div class="w3-bar w3-green w3-card-4">
-				<a href="/LMS3/stud/booklnd.php" class="w3-bar-item w3-btn w3-mobile w3-hover-pale-green">Lend Books</a>
-				<a href="/LMS3/stud/chlenbk.php" class="w3-bar-item w3-btn w3-mobile w3-hover-pale-green">Check Lended Books</a>
-				<a href="/LMS3/stud/reqnbook.php" class="w3-bar-item w3-btn w3-mobile w3-hover-pale-green">Request new Book</a>
-				<a href="/LMS3/stud/message.php" class="w3-bar-item w3-btn w3-mobile w3-hover-pale-green">Messenger</a>
+				<a href="/LMS3/prov/sdbkad.php" class="w3-bar-item w3-btn w3-mobile w3-hover-pale-green">Send Books</a>
 				<a href="/LMS3/home.php" class="w3-bar-item w3-btn w3-mobile w3-right w3-hover-pale-green">Logout</a>
+				<a href="/LMS3/prov/prof.php" class="w3-bar-item w3-btn w3-mobile w3-right w3-hover-pale-green">Profile</a>
 			</div>
 		</div>
 <?php
@@ -59,29 +57,6 @@
  	if (isset($_POST['update'])) {
  		$query1="update users set name='".$_POST['name']."', password='".$_POST['password']."', phone='".$_POST['phone']."', email='".$_POST['email']."', address='".$_POST['address']."' where username='".$_SESSION['UNAME']."' ";
 		mysqli_query($conn,$query1);
-		echo"<script>alert('Your profile information has been updated!!'); window.location.href='/LMS3/stud/prof.php'</script>";
- 	}
- 	$query2="select * from booklnd where uname='".$_SESSION['UNAME']."' and status='lended'";
- 	$requests=mysqli_query($conn,$query2);
- 	$bkcount=mysqli_num_rows($requests);
- 	echo "
- 		<div class='w3-container w3-card-4 w3-round-large w3-pale-green' style=' margin-bottom:5%; margin-left:5%; margin-right:5%'>
- 			<h4 class='w3-left w3-margin-left'> Number of pending books to be given back = ".$bkcount."</h4><br><br><br>
- 		</div>
- 		<div class='w3-container w3-card-4 w3-round-large w3-pale-green' style=' margin-bottom:5%; margin-left:5%; margin-right:5%'>
- 			<form action = '' method=POST>
- 				<h4 class='w3-left w3-margin-left'>Once Account Deleted it is unrecoverable !! Please use this button with care.</h4><br><br><br>
- 				<input class='w3-btn w3-red w3-round-xxlarge w3-margin' type='submit' value='Delete my Account' name='dropac' >
- 			</form>
- 		</div>";
- 	if (isset($_POST['dropac'])) {
- 		if ($bkcount<=0) {
- 			$query3="delete from users where username='".$_SESSION['UNAME']."' ";
- 			mysqli_query($conn,$query3);
- 			echo"<script>alert('Your account has been deleted.'); window.location.href='/LMS3/home.php'</script>";
- 		}
- 		else{
- 			echo"<script>alert('You Cheat first return all the books then delete your account');</script>";
- 		}
+		echo"<script>alert('Your profile information has been updated!!'); window.location.href='/LMS3/prof/prof.php'</script>";
  	}
 ?>
